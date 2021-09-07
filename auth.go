@@ -1,4 +1,4 @@
-package auth
+package common
 
 import (
 	"context"
@@ -7,7 +7,6 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/micro/go-micro/v2/metadata"
 	"github.com/micro/go-micro/v2/server"
-	"github.com/sjsbjyck/common"
 )
 
 func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
@@ -19,9 +18,9 @@ func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		}
 
 		tokenVal := meta["Token"]
-		fmt.Println("==>", common.AppConf().GetString("jwt.sign"))
+		fmt.Println("==>", AppConf().GetString("jwt.sign"))
 		jwt.Parse(tokenVal, func(token *jwt.Token) (interface{}, error) {
-			return []byte(common.AppConf().GetString("jwt.sign")), nil
+			return []byte(AppConf().GetString("jwt.sign")), nil
 		})
 
 		return fn(ctx, req, rsp)
