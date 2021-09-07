@@ -9,6 +9,7 @@ import (
 	"github.com/micro/go-micro/v2/server"
 )
 
+// token拦截器
 func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
 	return func(ctx context.Context, req server.Request, rsp interface{}) error {
 		//获取token
